@@ -72,7 +72,7 @@ is $@->body, '<html>bad gateway</html>';
 my $raw = '{"event":"sms.received","data":{"from":"+15551234567"}}';
 my $sig = 'sha256=e125c07dfbecb498e8979383d7b9f0815efb128755409794b486d4bbb7199583';
 ok WebService::SmsGora::verify_webhook($raw, $sig, 'whsec_test'), 'signature ok';
-ok WebService::SmsGora->verify_webhook($raw, $sig, 'whsec_test'), 'works as class method';
+ok(WebService::SmsGora->verify_webhook($raw, $sig, 'whsec_test'), 'works as class method');
 ok !WebService::SmsGora::verify_webhook($raw, $sig, 'other'), 'wrong secret';
 ok !WebService::SmsGora::verify_webhook('{}', $sig, 'whsec_test'), 'changed body';
 ok !WebService::SmsGora::verify_webhook($raw, undef, 'whsec_test'), 'missing header';
